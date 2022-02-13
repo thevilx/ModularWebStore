@@ -13,9 +13,9 @@ class ArticleController extends Controller
 {
 
     public function __construct(){
-        $this->middleware("create_article")->only("store");
-        $this->middleware("edit_article")->only("update");
-        $this->middleware("delete_article")->only("delete");
+        $this->middleware("can:create_article")->only("store");
+        $this->middleware("can:edit_article")->only("update");
+        $this->middleware("can:delete_article")->only("delete");
     }
 
     /**
@@ -27,6 +27,7 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         $validator = $request->validated();
+
         $filePath = Null;
         $slug = Str::slug($validator['title']);
 
@@ -42,13 +43,14 @@ class ArticleController extends Controller
             'title' => $validator['title'],
             'user_id' => $request->user()->id,
             'slug' => $slug,
-            // 'status' => $request->status,
+            'status' => $validator['status'],
             'description' => $validator['description'],
             'image' => $filePath,
             'categorie_id' => $request->category,
         ]);
 
-        // $articles->tags()->attach($request->tags);
+        if($request->has('tags'))
+            $articles->tags()->attach($request->tags);
 
         return ['massage' => "مطلب مورد نظر با موفقیت ایجاد شد."];
 

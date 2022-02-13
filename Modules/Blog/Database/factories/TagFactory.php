@@ -1,11 +1,18 @@
 <?php
 
-namespace Database\Factories;
+namespace Modules\Blog\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TagFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \Modules\Blog\Entities\Tag::class;
+
     /**
      * Define the model's default state.
      *

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tag;
-use App\Models\Article;
-use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,13 +17,30 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\User::factory(20)->create();
-        Category::factory(60)->create();
-        $tags = Tag::factory(100)->create();
 
-        Article::factory(1000)->create()->each(function ($article) use ($tags) {
-            $article->category_id = Category::inRandomOrder()->first()->id;
-            $article->save();
-            $article->tags()->attach($tags->random(2));
-        });
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        $permissions = [
+        'create_category',
+         'delete_category' ,
+         'edit_category'  , 
+         'create_article',
+         'delete_article',
+         'edit_article',
+         'create_tag',
+         'delete_tag',
+         'edit_tag',
+        ];
+
+
+        foreach($permissions as $permission){
+            Permission::create(['name' => $permission]);
+        }
+
+        $role = Role::create(['name' => 'Admin']);
+        $role->givePermissionTo(Permission::all());
+
+        $user = User::find(1);
+        $user->assignRole($role);
     }
 }

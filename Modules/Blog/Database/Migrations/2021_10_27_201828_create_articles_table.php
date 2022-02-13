@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->boolean('special')->default(0);
+            $table->enum('status' , ['active', 'review' , 'draft'])->default('draft');
             $table->string('image')->nullable();
             $table->timestamps();
         });

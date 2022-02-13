@@ -5,26 +5,26 @@ namespace Modules\Blog\Http\Controllers\Admin;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Modules\Blog\Http\Requests\CategoryRequest;
+use Modules\Blog\Http\Requests\GroupArticleRequest;
 
 class TagController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware("create_tag")->only("store");
-        $this->middleware("edit_tag")->only("update");
-        $this->middleware("delete_tag")->only("delete");
+        $this->middleware("can:create_tag")->only("store");
+        $this->middleware("can:edit_tag")->only("update");
+        $this->middleware("can:delete_tag")->only("delete");
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  GroupArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(GroupArticleRequest $request)
     {
         $validated = $request->validated();
         Tag::create($validated);

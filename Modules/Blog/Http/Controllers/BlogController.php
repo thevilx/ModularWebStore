@@ -2,10 +2,10 @@
 
 namespace Modules\Blog\Http\Controllers;
 
-use App\Models\Tag;
-use App\Models\Article;
-use App\Models\Category;
-use Illuminate\Http\Request;
+
+use Modules\Blog\Entities\Tag;
+use Modules\Blog\Entities\Article;
+use Modules\Blog\Entities\Category;
 use App\Http\Controllers\Controller;
 use Modules\Blog\Transformers\ArticleResource;
 

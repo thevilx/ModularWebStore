@@ -5,7 +5,7 @@ namespace Modules\Blog\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Modules\Blog\Http\Requests\CategoryRequest;
+use Modules\Blog\Http\Requests\GroupArticleRequest;
 
 
 class CategoryController extends Controller
@@ -13,9 +13,9 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware("create_category")->only("store");
-        $this->middleware("edit_category")->only("update");
-        $this->middleware("delete_category")->only("delete");
+        $this->middleware("can:create_category")->only("store");
+        $this->middleware("can:edit_category")->only("update");
+        $this->middleware("can:delete_category")->only("delete");
     }
 
 
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(GroupArticleRequest $request)
     {
         $validated = $request->validated();
         Category::create($validated);
@@ -39,7 +39,7 @@ class CategoryController extends Controller
      * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(GroupArticleRequest $request, Category $category)
     {
         $validated = $request->validated();
         $category->update($validated);

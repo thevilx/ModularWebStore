@@ -9,5 +9,10 @@
     ],
     "aliases": {},
     "files": [],
-    "requires": []
+    "requires": [],
+    "migration": {
+        "seeds": [
+            "Modules\\Blog\\Database\\Seeders\\BlogSeeder"
+        ]
+    }
 }

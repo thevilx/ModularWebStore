@@ -26,9 +26,11 @@ class ArticleRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            // 'status' => 'required',
+            'status' => 'in:active,review,draft',
             'special' => 'boolean',
             'image'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'exists:categories,id',
+            'tags.*' => 'exists:tags,id',
         ];
     }
 }

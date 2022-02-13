@@ -23,6 +23,8 @@ Route::middleware(['auth:sanctum' , 'can:article.create'])->get('/user', functio
     return $request->user();
 });
 
+
+
 // Phone
 Route::post('/sendSmsTo' , [PhoneController::class , 'sendSmsTo']);
 Route::post('/validatePhone' , [PhoneController::class , 'validatePhone']);

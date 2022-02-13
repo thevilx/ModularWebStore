@@ -14,4 +14,8 @@ class Category extends Model
     public function articles(){
         return $this->hasMany(Article::class);
     }
+    protected static function newFactory()
+    {
+        return \Modules\Blog\Database\factories\CategoryFactory::new();
+    }
 }

@@ -34,6 +34,5 @@ class CreateCategoriesTable extends Migration
     {
         Schema::dropColumns('articles' , 'category_id');
         Schema::dropIfExists('categories');
-
     }
 }
