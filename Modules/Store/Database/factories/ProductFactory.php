@@ -3,6 +3,7 @@ namespace Modules\Store\Database\factories;
 
 use Modules\Store\Entities\ProductBundle;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Store\Entities\ProductAttributes;
 
 class ProductFactory extends Factory
 {
@@ -21,7 +22,6 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'p_bundle_id' => ProductBundle::inRandomOrder()->first()->id,
             'quantity' => $this->faker->numberBetween(0 , 20),
             'price' => $this->faker->numberBetween(1000 , 50000),
         ];

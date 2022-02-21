@@ -12,11 +12,6 @@ class ProductAttributes extends Model
     public $timestamps = false;
     
     protected $fillable = [];
-
-    public function attribute()
-    {
-        return $this->belongsToMany(ProductAttributes::class, 'attribute_product');
-    }
    
     protected static function newFactory()
     {

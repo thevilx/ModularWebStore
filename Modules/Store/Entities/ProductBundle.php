@@ -9,7 +9,7 @@ class ProductBundle extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['name' , 'description' , 'slug' , 'category_id' , 'has_attribute'];
     protected $table = "productBundles";
 
     public function products(){

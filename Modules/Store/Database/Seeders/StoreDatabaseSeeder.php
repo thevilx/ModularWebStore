@@ -17,7 +17,9 @@ class StoreDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        ProductBundle::factory(60)->create();
+        $productBundles = ProductBundle::factory(60)->create([
+            'p_type' => "complex"
+        ]);
       
 
         foreach(['color' => ['blue' , 'red' , 'green'] , 'size' => ['large' , 'x-large' , 'xx-large']] as $attribute => $values){
@@ -29,20 +31,15 @@ class StoreDatabaseSeeder extends Seeder
             }
         }
 
-        $products = Product::factory(60)->create();
+        $productBundles->each(function($pb){
+            $products = Product::factory(rand(2 , 3))->create([
+                'p_bundle_id' => $pb->id
+            ]);
 
-        $products->each(function($product){
-
-            $product->attributes()
-                    ->attach(
-                        [
-                            ProductAttributes::inRandomOrder()->first()->id,
-                            ProductAttributes::inRandomOrder()->first()->id
-                        ]
-                    );
-
+            $products->each(function ($product) {
+                $product->attributes()->attach(ProductAttributes::inRandomOrder()->take(3)->pluck('id'));
+            });
         });
-
- 
+        
     }
 }

@@ -9,14 +9,14 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['p_attribute_id' , 'p_bundle_id' , 'quantity' , 'price'];
     
     public function productBundle(){
         return $this->belongsTo(ProductBundle::class , 'p_bundle_id');
     }
 
     public function attributes(){
-        return $this->belongsToMany(ProductAttributes::class , 'attribute_product' , 'product_id' , 'attribute_id' );
+        return $this->belongsToMany(ProductAttributes::class , "attribute_product");
     }
 
     protected static function newFactory()
